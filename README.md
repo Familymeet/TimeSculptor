@@ -99,13 +99,3 @@ All contributions are welcome!
 ## License
 
 This project is licensed under the GNU License — see the LICENSE file for full details.
-TimeSculptor is a sleek, minimal, and responsive countdown timer for productivity, built using Flask (Python), HTML, CSS, and JavaScript. It allows users to set a custom countdown, receive a visual and audio warning when one minute remains, and an alarm when time is up.
-
----
-
-## Features
-
-- Custom Input: Enter hours, minutes, and seconds manually.
-- Dark Mode: Clear, readable UI designed in dark mode.
-- Audio Alerts:
-  - Warning
