@@ -61,17 +61,6 @@ TimeSculptor is a sleek, minimal, and responsive countdown timer for productivit
 
 GitHub Pages only supports static content, so you cannot run a Flask app directly on GitHub Pages.
 
-However, you can:
-
-- Host your actual Flask app using a service like Render.
-- Create a static landing page on GitHub Pages that links to your hosted Flask site.
-
-Steps to link:
-1. Create a gh-pages branch (or a new repository for your static site).
-2. Add an index.html that links to your deployed Flask app.
-3. Enable GitHub Pages in your repository settings.
-
----
 
 ## Project Structure
 
