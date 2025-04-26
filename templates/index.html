@@ -10,48 +10,34 @@
 
     <h1>⏳ TimeSculptor</h1>
 
-    <!-- Plane Layout -->
-    <div class="plane">
-        
-        <!-- Cockpit: Countdown Display -->
-        <div class="cockpit">
-            <div id="countdown-display">00:00:00</div>
-        </div>
-
-        <!-- Fuselage: Time Inputs -->
-        <div class="fuselage">
-            <input type="number" id="hours" placeholder="HH" min="0">
-            <input type="number" id="minutes" placeholder="MM" min="0">
-            <input type="number" id="seconds" placeholder="SS" min="0">
-        </div>
-
-        <!-- Wings: Buttons -->
-        <div class="wings">
-            <button onclick="startTimer()">Start</button>
-            <button onclick="pauseTimer()">Pause</button>
-            <button onclick="resetTimer()">Reset</button>
-        </div>
-
-        <!-- Tail: Flair or Extra Controls -->
-        <div class="tail">
-            <span>✈️ TimeSculptor</span>
-        </div>
-
+    <!-- Timer Display -->
+    <div class="timer-display">
+        <div id="countdown-display">00:00:00</div>
     </div>
 
-    <!-- Warning Image and Countdown Display -->
+    <!-- Time Inputs -->
+    <div class="time-inputs">
+        <input type="number" id="hours" placeholder="HH" min="0">
+        <input type="number" id="minutes" placeholder="MM" min="0">
+        <input type="number" id="seconds" placeholder="SS" min="0">
+    </div>
+
+    <!-- Control Buttons -->
+    <div class="controls">
+        <button onclick="startTimer()">Start</button>
+        <button onclick="pauseTimer()">Pause</button>
+        <button onclick="resetTimer()">Reset</button>
+    </div>
+
+    <!-- Warning Section -->
     <div id="warning">
         <img id="warning-image" src="{{ url_for('static', filename='images/warning.png') }}" alt="Warning">
-        1 minute remaining!
+        <p>1 minute remaining!</p>
     </div>
 
-    <div id="countdown-display">
-        <span id="countdown-number">10</span>
-    </div>
-
-    <!-- Audio files (MP4) -->
-    <audio id="warning-sound" src="{{ url_for('static', filename='audio/your_audio_file.mp4') }}" preload="auto"></audio>
-    <audio id="alarm-sound" src="{{ url_for('static', filename='audio/your_audio_file.mp4') }}" preload="auto"></audio>
+    <!-- Audio Alerts -->
+    <audio id="warning-sound" src="{{ url_for('static', filename='audio/new_alarm.mp3') }}" preload="auto"></audio>
+    <audio id="alarm-sound" src="{{ url_for('static', filename='audio/alarm.mp3') }}" preload="auto"></audio>
 
     <script src="{{ url_for('static', filename='script.js') }}"></script>
 
