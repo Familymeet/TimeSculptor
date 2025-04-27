@@ -52,8 +52,8 @@ function startTimer() {
     isPaused = false;
     updateDisplay();
 
-    // Resume warning sound if it's paused and was already playing
-    if (warningShown && warningSound.paused && totalSeconds <= 60 && totalSeconds > 0) {
+    // Resume warning sound if we are already in warning state
+    if (warningShown && totalSeconds <= 60 && totalSeconds > 0) {
         warningSound.play().catch(err => console.error("Warning sound resume error:", err));
     }
 }
@@ -71,6 +71,7 @@ function countdown() {
 
         if (totalSeconds === 60 && !warningShown) {
             console.log("Warning triggered at 60 seconds");
+            warningSound.currentTime = 0;
             warningSound.play().catch(err => console.error("Warning sound error:", err));
             warningMessage.textContent = "Warning: 1 minute remaining!";
             warningMessage.style.color = "red";
@@ -82,8 +83,8 @@ function countdown() {
         timerInterval = null;
         updateDisplay();
 
-        warningSound.pause();  // Stop warning
-        // Don't reset currentTime here
+        warningSound.pause();
+        warningSound.currentTime = 0;
 
         alarmSound.play().catch(err => console.error("Alarm sound error:", err));
         warningMessage.textContent = "";
@@ -97,7 +98,8 @@ function pauseTimer() {
         timerInterval = null;
         isPaused = true;
 
-        warningSound.pause();  // Pause but do NOT reset currentTime
+        warningSound.pause();
+        warningSound.currentTime = 0;  // Reset so it starts from beginning later
     }
 }
 
@@ -117,9 +119,10 @@ function resetTimer() {
     updateDisplay();
 
     warningSound.pause();
-    warningSound.currentTime = 0;   // Reset only on reset
+    warningSound.currentTime = 0;
     alarmSound.pause();
     alarmSound.currentTime = 0;
 
     warningMessage.textContent = "";
 }
+gi
