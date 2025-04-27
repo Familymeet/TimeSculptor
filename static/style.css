@@ -45,11 +45,14 @@ button:hover {
     border-radius: 8px;
     background-color: #222;
     color: #fff;
-
-    .time-inputs input::placeholder {
-        font-size: 24px; 
-        color: #aaa; 
 }
+
+/* Placeholder inside input fields */
+.time-inputs input::placeholder {
+    font-size: 24px; 
+    color: #aaa; 
+}
+
 /* Warning section */
 #warning {
     position: absolute;
@@ -73,9 +76,8 @@ button:hover {
 }
 
 /* Countdown display styling */
-#countdown-display {
-    font-size: 2em;
+#display {
+    font-size: 80px;
     font-weight: bold;
-    margin: 20px 0;
-}
+    margin-bottom: 20px;
 }
