@@ -14,11 +14,14 @@ alarmSound.load();
 // Update the display
 function updateDisplay() {
     const display = document.getElementById('display');
-    const minutes = String(Math.floor(totalSeconds / 60)).padStart(2, '0');
+    const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+    const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
     const seconds = String(totalSeconds % 60).padStart(2, '0');
 
     // Only show countdown when <= 60 seconds
-    display.textContent = `${minutes}:${seconds}`;
+    if (totalSeconds <= 60) {
+        display.textContent = `${minutes}:${seconds}`;
+    }
 }
 
 // Start the timer
@@ -35,6 +38,8 @@ function startTimer() {
 
     isPaused = false;
     clearInterval(timerInterval);
+
+    warningShown = false; // Reset the warning flag when starting the timer
 
     timerInterval = setInterval(() => {
         if (totalSeconds > 0) {
@@ -76,7 +81,7 @@ function resetTimer() {
     clearInterval(timerInterval);  // Stop the interval
     totalSeconds = 0;  // Reset time
     isPaused = false;
-    warningShown = false;
+    warningShown = false;  // Reset the warning flag
 
     // Reset input fields
     document.getElementById('hours').value = '';

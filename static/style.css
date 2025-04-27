@@ -34,7 +34,6 @@ button:hover {
 
 /* Warning section */
 #warning {
-    display: none;
     position: absolute;
     bottom: 10px;
     left: 50%;
@@ -48,6 +47,11 @@ button:hover {
 #warning img {
     width: 30px;
     margin-right: 10px;
+}
+
+/* Hide the warning section by default */
+.hidden {
+    display: none;
 }
 
 /* Countdown display styling */

@@ -1,51 +1,5 @@
 <!DOCTYPE html>
-<html<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>TimeSculptor</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    </head>
-    <body>
-    
-        <h1>⏳ TimeSculptor</h1>
-    
-        <!-- Timer Display -->
-        <div class="timer-display">
-            <!-- Display current time -->
-            <div id="display">00:00</div>
-        </div>
-    
-        <!-- Time Inputs -->
-        <div class="time-inputs">
-            <input type="number" id="hours" placeholder="HH" min="0">
-            <input type="number" id="minutes" placeholder="MM" min="0">
-            <input type="number" id="seconds" placeholder="SS" min="0">
-        </div>
-    
-        <!-- Control Buttons -->
-        <div class="controls">
-            <button onclick="startTimer()">Start</button>
-            <button onclick="pauseTimer()">Pause</button>
-            <button onclick="resetTimer()">Reset</button>
-        </div>
-    
-        <!-- Warning Section -->
-        <div id="warning" style="display: none;">
-            <img id="warning-image" src="{{ url_for('static', filename='images/warning.png') }}" alt="Warning">
-            <p>1 minute remaining!</p>
-        </div>
-    
-        <!-- Audio Alerts -->
-        <audio id="warning-sound" src="{{ url_for('static', filename='audio/new_alarm.mp3') }}" preload="auto"></audio>
-        <audio id="alarm-sound" src="{{ url_for('static', filename='audio/alarm.mp3') }}" preload="auto"></audio>
-    
-        <script src="{{ url_for('static', filename='script.js') }}"></script>
-    
-    </body>
-    </html>
-     lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -77,7 +31,7 @@
     </div>
 
     <!-- Warning Section -->
-    <div id="warning" style="display: none;">
+    <div id="warning" class="hidden">
         <img id="warning-image" src="{{ url_for('static', filename='images/warning.png') }}" alt="Warning">
         <p>1 minute remaining!</p>
     </div>
