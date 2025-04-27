@@ -26,11 +26,29 @@ button {
     color: white;
     cursor: pointer;
     border-radius: 5px;
+    font-size: 30px; 
+    margin: 5px;
 }
 
 button:hover {
     background-color: #777;
 }
+
+/* Time Inputs */
+.time-inputs input 
+    width: 100px;         
+    height: 60px;         
+    font-size: 28px;      
+    text-align: center;   
+    margin: 10px;
+    border: 2px solid #555;
+    border-radius: 8px;
+    background-color: #222;
+    color: #fff;
+
+    .time-inputs input::placeholder 
+        font-size: 24px;
+        color: #aaa; 
 
 /* Warning section */
 #warning {
