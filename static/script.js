@@ -21,37 +21,37 @@ function updateDisplay() {
     if (displaySeconds) {
         display.textContent = `${hours}:${minutes}:${seconds}`;
     } else {
-        display.textContent = `${hours}:${minutes}:--`;  // Hide seconds until 30 left
+        display.textContent = `${hours}:${minutes}:--`;
     }
 }
 
 // Start or resume the timer
 function startTimer() {
-    if (!timerInterval) {  
+    if (!timerInterval) {
         // Only set totalSeconds if timer is NOT already running or paused
         if (!isPaused) {
             const hoursInput = parseInt(document.getElementById('hours').value) || 0;
             const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
             const secondsInput = parseInt(document.getElementById('seconds').value) || 0;
-    
+
             totalSeconds = hoursInput * 3600 + minutesInput * 60 + secondsInput;
-    
+
             if (totalSeconds < 30) {
                 alert("Please enter a time greater than or equal to 30 seconds.");
                 return;
             }
-    
-            if (totalSeconds <= 0) return; 
-        }
 
-        warningShown = false;
-        displaySeconds = false;
-        updateDisplay();
+            if (totalSeconds <= 0) return;
+
+            warningShown = false;
+            displaySeconds = false;
+        }
 
         timerInterval = setInterval(countdown, 1000);
     }
 
     isPaused = false;
+    updateDisplay();  // <-- THIS fixes it! Update immediately when resuming
 }
 
 // Countdown logic
