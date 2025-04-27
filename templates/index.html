@@ -15,6 +15,9 @@
         <div id="display">00:00:00</div>
     </div>
 
+    <!-- Warning message placeholder -->
+    <div id="warning-message"></div>
+
     <!-- Time Inputs -->
     <div class="time-inputs">
         <input type="number" id="hours" placeholder="HH" min="0">
@@ -29,11 +32,7 @@
         <button onclick="resetTimer()">Reset</button>
     </div>
 
-    <!-- Warning Section -->
-    <div id="warning" class="hidden">
-        <img id="warning-image" src="{{ url_for('static', filename='images/warning.png') }}" alt="Warning">
-        <p>1 minute remaining!</p>
-    </div>
+    
 
     <!-- Audio Alerts -->
     <audio id="warning-sound" src="{{ url_for('static', filename='audio/new_alarm.mp3') }}" preload="auto"></audio>
