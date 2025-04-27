@@ -18,10 +18,8 @@ function updateDisplay() {
     const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
     const seconds = String(totalSeconds % 60).padStart(2, '0');
 
-    // Only show countdown when <= 60 seconds
-    if (totalSeconds <= 60) {
-        display.textContent = `${minutes}:${seconds}`;
-    }
+    // Update display regardless of the time
+    display.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
 // Start the timer
@@ -41,10 +39,13 @@ function startTimer() {
 
     warningShown = false; // Reset the warning flag when starting the timer
 
+    // Make sure the display starts with the correct time
+    updateDisplay();
+
     timerInterval = setInterval(() => {
         if (totalSeconds > 0) {
             totalSeconds--;  // Countdown by 1 second
-            updateDisplay();
+            updateDisplay();  // Update the display every second
 
             // Show warning when 60 seconds are left
             if (totalSeconds === 60 && !warningShown) {
