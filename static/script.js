@@ -19,13 +19,16 @@ function updateDisplay() {
     if (displaySeconds) {
         display.textContent = `${hours}:${minutes}:${seconds}`;
     } else {
-        display.textContent = `${hours}:${minutes}:--`;
+        display.textContent = `${hours}:${minutes}:--`;  // Hide seconds until 30 left
     }
 }
 
-// Start the timer
+// Start or resume the timer
 function startTimer() {
-    if (isPaused) return; // Prevent double-start if paused
+    if (isPaused) {
+        isPaused = false; // Resuming the timer
+        return;  // Do nothing if already paused, just resume
+    }
 
     const hoursInput = parseInt(document.getElementById('hours').value) || 0;
     const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
@@ -35,7 +38,6 @@ function startTimer() {
 
     if (totalSeconds <= 0) return; // Don't start if zero
 
-    isPaused = false;
     clearInterval(timerInterval); // Clear old interval if any
     warningShown = false; // Reset warning state
     displaySeconds = false; // Start with seconds hidden
@@ -78,25 +80,28 @@ function startTimer() {
 
 // Pause the timer
 function pauseTimer() {
-    isPaused = true;
-    clearInterval(timerInterval);
+    if (!isPaused) {
+        clearInterval(timerInterval);  // Stop the interval
+        isPaused = true;  // Set the flag to paused
+        console.log("Timer paused at", totalSeconds);  // Debugging line
+    }
 }
 
 // Reset the timer
 function resetTimer() {
-    clearInterval(timerInterval);
-    totalSeconds = 0;
-    isPaused = false;
-    warningShown = false;
-    displaySeconds = false;
+    clearInterval(timerInterval);  // Clear the interval when resetting
+    totalSeconds = 0;  // Reset totalSeconds
+    isPaused = false;  // Ensure it starts unpaused after reset
+    warningShown = false;  // Reset warning state
+    displaySeconds = false;  // Hide seconds initially after reset
 
     // Clear input fields
     document.getElementById('hours').value = '';
     document.getElementById('minutes').value = '';
     document.getElementById('seconds').value = '';
 
-    updateDisplay();
-    document.getElementById('warning').classList.add('hidden'); // Hide the warning
+    updateDisplay();  // Update display to show reset time (00:00:00)
+    document.getElementById('warning').classList.add('hidden');  // Hide warning
 
     // Stop sounds
     warningSound.pause();
