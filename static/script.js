@@ -28,7 +28,6 @@ function updateDisplay() {
 // Start or resume the timer
 function startTimer() {
     if (!timerInterval) {
-        // Only set totalSeconds if timer is NOT already running or paused
         if (!isPaused) {
             const hoursInput = parseInt(document.getElementById('hours').value) || 0;
             const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
@@ -51,7 +50,12 @@ function startTimer() {
     }
 
     isPaused = false;
-    updateDisplay();  // <-- THIS fixes it! Update immediately when resuming
+    updateDisplay();
+
+    // Resume warning sound if it's paused and was already playing
+    if (warningShown && warningSound.paused && totalSeconds <= 60 && totalSeconds > 0) {
+        warningSound.play().catch(err => console.error("Warning sound resume error:", err));
+    }
 }
 
 // Countdown logic
@@ -78,8 +82,8 @@ function countdown() {
         timerInterval = null;
         updateDisplay();
 
-        warningSound.pause();
-        warningSound.currentTime = 0;
+        warningSound.pause();  // Stop warning
+        // Don't reset currentTime here
 
         alarmSound.play().catch(err => console.error("Alarm sound error:", err));
         warningMessage.textContent = "";
@@ -93,8 +97,7 @@ function pauseTimer() {
         timerInterval = null;
         isPaused = true;
 
-        warningSound.pause();
-        warningSound.currentTime = 0;
+        warningSound.pause();  // Pause but do NOT reset currentTime
     }
 }
 
@@ -114,7 +117,7 @@ function resetTimer() {
     updateDisplay();
 
     warningSound.pause();
-    warningSound.currentTime = 0;
+    warningSound.currentTime = 0;   // Reset only on reset
     alarmSound.pause();
     alarmSound.currentTime = 0;
 
