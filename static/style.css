@@ -35,7 +35,7 @@ button:hover {
 }
 
 /* Time Inputs */
-.time-inputs input 
+.time-inputs input {
     width: 100px;         
     height: 60px;         
     font-size: 28px;      
@@ -46,10 +46,10 @@ button:hover {
     background-color: #222;
     color: #fff;
 
-    .time-inputs input::placeholder 
-        font-size: 24px;
+    .time-inputs input::placeholder {
+        font-size: 24px; 
         color: #aaa; 
-
+}
 /* Warning section */
 #warning {
     position: absolute;
@@ -76,4 +76,6 @@ button:hover {
 #countdown-display {
     font-size: 2em;
     font-weight: bold;
+    margin: 20px 0;
+}
 }
