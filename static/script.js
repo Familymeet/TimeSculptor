@@ -42,7 +42,9 @@ function startTimer() {
 
             // Show 1-minute warning
             if (totalSeconds === 60 && !warningShown) {
-                document.getElementById('warning').classList.remove('hidden');
+                // Show the warning
+                const warningElement = document.getElementById('warning');
+                warningElement.style.display = 'block'; // Make the warning visible
                 warningSound.play().catch(err => console.error("Warning sound error:", err));
                 warningShown = true;
             }
@@ -56,7 +58,8 @@ function startTimer() {
 
             alarmSound.play().catch(err => console.error("Alarm sound error:", err));
 
-            document.getElementById('warning').classList.add('hidden');
+            // Hide the warning when timer ends
+            document.getElementById('warning').style.display = 'none';
         }
     }, 1000);
 }
@@ -80,7 +83,7 @@ function resetTimer() {
     document.getElementById('seconds').value = '';
 
     updateDisplay();
-    document.getElementById('warning').classList.add('hidden');
+    document.getElementById('warning').style.display = 'none'; // Hide warning on reset
 
     // Stop sounds
     warningSound.pause();

@@ -63,16 +63,12 @@ button:hover {
     color: white;
     padding: 10px;
     border-radius: 5px;
+    display: none; /* Hidden by default */
 }
 
 #warning img {
     width: 30px;
     margin-right: 10px;
-}
-
-/* Hide the warning section by default */
-.hidden {
-    display: none;
 }
 
 /* Countdown display styling */
