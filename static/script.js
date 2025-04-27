@@ -125,3 +125,12 @@ function resetTimer() {
 
     warningMessage.textContent = "";
 }
+
+function shutdown() {
+    if (confirm("Type OK to exit the app.")) {
+        alert("Shutting down...");
+        window.close(); // I cant get this to work, might have to be JS sceen?
+    }
+}
+
+
