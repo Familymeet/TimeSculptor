@@ -26,8 +26,10 @@ function updateDisplay() {
 // Start or resume the timer
 function startTimer() {
     if (isPaused) {
-        isPaused = false; // Resuming the timer
-        return;  // Do nothing if already paused, just resume
+        // If the timer was paused, just resume
+        isPaused = false;
+        timerInterval = setInterval(countdown, 1000);  // Restart the interval
+        return;
     }
 
     const hoursInput = parseInt(document.getElementById('hours').value) || 0;
@@ -44,38 +46,38 @@ function startTimer() {
 
     updateDisplay(); // Show starting time immediately
 
-    timerInterval = setInterval(() => {
-        if (totalSeconds > 0) {
-            totalSeconds--;
-            updateDisplay();
+    timerInterval = setInterval(countdown, 1000); // Start the interval
+}
 
-            // Show 60-second warning (only once)
-            if (totalSeconds === 60 && !warningShown) {
-                console.log("Warning triggered at 60 seconds"); // Debugging line
-                document.getElementById('warning').classList.remove('hidden');
-                warningSound.play().catch(err => console.error("Warning sound error:", err));
-                warningShown = true; // Mark warning as shown
-            }
+// Countdown logic
+function countdown() {
+    if (totalSeconds > 0) {
+        totalSeconds--;
+        updateDisplay();
 
-            // Show seconds countdown starting at 30 seconds left
-            if (totalSeconds === 30) {
-                displaySeconds = true;  // Allow seconds to show
-                updateDisplay(); // Update the display with seconds
-            }
-
-        } else {
-            // Time ran out
-            clearInterval(timerInterval);
-            updateDisplay();
-
-            warningSound.pause();
-            warningSound.currentTime = 0;
-
-            alarmSound.play().catch(err => console.error("Alarm sound error:", err));
-
-            document.getElementById('warning').classList.add('hidden'); // Hide the warning
+        // Show seconds countdown starting at 30 seconds left
+        if (totalSeconds === 30) {
+            displaySeconds = true;  // Allow seconds to show
+            updateDisplay(); // Update the display with seconds
         }
-    }, 1000);
+
+        // Show 60-second warning (only once)
+        if (totalSeconds === 60 && !warningShown) {
+            console.log("Warning triggered at 60 seconds"); // Debugging line
+            warningSound.play().catch(err => console.error("Warning sound error:", err));
+            warningShown = true; // Mark warning as shown
+        }
+
+    } else {
+        // Time ran out
+        clearInterval(timerInterval);
+        updateDisplay();
+
+        warningSound.pause();
+        warningSound.currentTime = 0;
+
+        alarmSound.play().catch(err => console.error("Alarm sound error:", err));
+    }
 }
 
 // Pause the timer
@@ -83,7 +85,6 @@ function pauseTimer() {
     if (!isPaused) {
         clearInterval(timerInterval);  // Stop the interval
         isPaused = true;  // Set the flag to paused
-        console.log("Timer paused at", totalSeconds);  // Debugging line
     }
 }
 
@@ -101,7 +102,6 @@ function resetTimer() {
     document.getElementById('seconds').value = '';
 
     updateDisplay();  // Update display to show reset time (00:00:00)
-    document.getElementById('warning').classList.add('hidden');  // Hide warning
 
     // Stop sounds
     warningSound.pause();
