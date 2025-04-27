@@ -25,18 +25,24 @@ function updateDisplay() {
 
 // Start or resume the timer
 function startTimer() {
+    const hoursInput = parseInt(document.getElementById('hours').value) || 0;
+    const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
+    const secondsInput = parseInt(document.getElementById('seconds').value) || 0;
+
+    totalSeconds = hoursInput * 3600 + minutesInput * 60 + secondsInput;
+
+    // Check if the set time is less than 30 seconds
+    if (totalSeconds < 30) {
+        alert("Please enter a time greater than or equal to 30 seconds.");
+        return;  // Stop the function if the time is invalid
+    }
+
     if (isPaused) {
         // If the timer was paused, just resume
         isPaused = false;
         timerInterval = setInterval(countdown, 1000);  // Restart the interval
         return;
     }
-
-    const hoursInput = parseInt(document.getElementById('hours').value) || 0;
-    const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
-    const secondsInput = parseInt(document.getElementById('seconds').value) || 0;
-
-    totalSeconds = hoursInput * 3600 + minutesInput * 60 + secondsInput;
 
     if (totalSeconds <= 0) return; // Don't start if zero
 
@@ -85,6 +91,10 @@ function pauseTimer() {
     if (!isPaused) {
         clearInterval(timerInterval);  // Stop the interval
         isPaused = true;  // Set the flag to paused
+
+        // Stop the warning sound when the timer is paused
+        warningSound.pause();
+        warningSound.currentTime = 0;
     }
 }
 
