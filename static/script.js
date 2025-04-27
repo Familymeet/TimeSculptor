@@ -125,4 +125,3 @@ function resetTimer() {
 
     warningMessage.textContent = "";
 }
-gi
