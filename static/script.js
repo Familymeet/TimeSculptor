@@ -85,10 +85,6 @@ function pauseTimer() {
     if (!isPaused) {
         clearInterval(timerInterval);  // Stop the interval
         isPaused = true;  // Set the flag to paused
-        warningSound.pause();  // Pause warning sound
-        warningSound.currentTime = 0;  // Reset warning sound to start
-        alarmSound.pause();  // Pause alarm sound
-        alarmSound.currentTime = 0;  // Reset alarm sound to start
     }
 }
 
