@@ -3,97 +3,86 @@ let timerInterval;
 let warningShown = false;
 let isPaused = false;
 
-// Audio for warning and final alarm
-const warningSound = new Audio('/static/audio/new_alarm.mp3');
-const alarmSound = new Audio('/static/audio/alarm.mp3');
+// Get audio elements from the page
+const warningSound = document.getElementById('warning-sound');
+const alarmSound = document.getElementById('alarm-sound');
 
-// Preload the sounds
-warningSound.load();
-alarmSound.load();
-
-// Update the display
+// Update the timer display
 function updateDisplay() {
     const display = document.getElementById('display');
     const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
     const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
     const seconds = String(totalSeconds % 60).padStart(2, '0');
 
-    // Update display regardless of the time
     display.textContent = `${hours}:${minutes}:${seconds}`;
 }
 
 // Start the timer
 function startTimer() {
-    if (isPaused) return; // If timer is paused, do nothing on start
+    if (isPaused) return; // Prevent double-start if paused
 
-    const hours = parseInt(document.getElementById('hours').value) || 0;
-    const minutes = parseInt(document.getElementById('minutes').value) || 0;
-    const seconds = parseInt(document.getElementById('seconds').value) || 0;
+    const hoursInput = parseInt(document.getElementById('hours').value) || 0;
+    const minutesInput = parseInt(document.getElementById('minutes').value) || 0;
+    const secondsInput = parseInt(document.getElementById('seconds').value) || 0;
 
-    totalSeconds = hours * 3600 + minutes * 60 + seconds;
+    totalSeconds = hoursInput * 3600 + minutesInput * 60 + secondsInput;
 
-    if (totalSeconds <= 0) return;  // Don't start if no valid time
+    if (totalSeconds <= 0) return; // Don't start if zero
 
     isPaused = false;
-    clearInterval(timerInterval);
+    clearInterval(timerInterval); // Clear old interval if any
+    warningShown = false; // Reset warning state
 
-    warningShown = false; // Reset the warning flag when starting the timer
-
-    // Make sure the display starts with the correct time
-    updateDisplay();
+    updateDisplay(); // Show starting time immediately
 
     timerInterval = setInterval(() => {
         if (totalSeconds > 0) {
-            totalSeconds--;  // Countdown by 1 second
-            updateDisplay();  // Update the display every second
+            totalSeconds--;
+            updateDisplay();
 
-            // Show warning when 60 seconds are left
+            // Show 1-minute warning
             if (totalSeconds === 60 && !warningShown) {
-                document.getElementById('warning').style.display = 'block';
+                document.getElementById('warning').classList.remove('hidden');
                 warningSound.play().catch(err => console.error("Warning sound error:", err));
                 warningShown = true;
             }
         } else {
-            // Timer has finished
+            // Time ran out
             clearInterval(timerInterval);
             updateDisplay();
 
-            // Stop warning sound
             warningSound.pause();
             warningSound.currentTime = 0;
 
-            // Play final alarm sound
             alarmSound.play().catch(err => console.error("Alarm sound error:", err));
 
-            // Hide warning
-            document.getElementById('warning').style.display = 'none';
+            document.getElementById('warning').classList.add('hidden');
         }
-    }, 1000);  // Run the countdown every second
+    }, 1000);
 }
 
 // Pause the timer
 function pauseTimer() {
-    isPaused = true;  // Just stop the countdown, not resetting the time
-    clearInterval(timerInterval);  // Stop the interval
+    isPaused = true;
+    clearInterval(timerInterval);
 }
 
 // Reset the timer
 function resetTimer() {
-    clearInterval(timerInterval);  // Stop the interval
-    totalSeconds = 0;  // Reset time
+    clearInterval(timerInterval);
+    totalSeconds = 0;
     isPaused = false;
-    warningShown = false;  // Reset the warning flag
+    warningShown = false;
 
-    // Reset input fields
+    // Clear input fields
     document.getElementById('hours').value = '';
     document.getElementById('minutes').value = '';
     document.getElementById('seconds').value = '';
 
-    // Reset display and hide warning
     updateDisplay();
-    document.getElementById('warning').style.display = 'none';
+    document.getElementById('warning').classList.add('hidden');
 
-    // Stop the sounds
+    // Stop sounds
     warningSound.pause();
     warningSound.currentTime = 0;
     alarmSound.pause();
