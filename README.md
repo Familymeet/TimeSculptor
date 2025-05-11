@@ -51,7 +51,7 @@ TimeSculptor is a sleek, minimal, and responsive countdown timer for productivit
    export FLASK_APP=app.py
 
 2. Run the app:
-   flask run
+   python -m flask run
 
 3. Open your browser at http://127.0.0.1:5000
 
