@@ -77,6 +77,17 @@ TimeSculptor/
 └── templates/  
     └── index.html       # Frontend template
 
+
+##  Acknowledgments
+
+This project was made possible with the help of:
+
+- Mr. Pogue, for guidance and support during development  
+- Eric O, for debugging advice and encouragement  
+- [MDN Web Docs](https://developer.mozilla.org/) – invaluable resource for JavaScript and HTML along with W3 school 
+- Stack Overflow – for solving many small coding hurdles  
+- [Flask Documentation](https://flask.palletsprojects.com/) – for backend setup
+
 ---
 
 ## Customization
